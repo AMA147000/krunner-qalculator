@@ -23,7 +23,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt6 CONFIG REQUIRED COMPONENTS Core Widgets)
-find_package(KF6 REQUIRED COMPONENTS Runner I18n CoreAddons)
+find_package(KF6 REQUIRED COMPONENTS Runner I18n CoreAddons Config)
 
 add_definitions("-DPROJECT_VERSION=\"${PROJECT_VERSION}\"")
 
@@ -40,10 +40,12 @@ target_link_libraries(krunner_qalculator
     KF6::Runner
     KF6::I18n
     KF6::CoreAddons
+    KF6::ConfigCore
 )
 
-install(TARGETS krunner_qalculator DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/qt6/plugins/kf6/krunner)
-install(FILES manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/qt6/plugins/kf6/krunner)
+# This should use KDE_INSTALL_QTPLUGINDIR instead of CMAKE_INSTALL_PREFIX as it is a kde plugin (correct me if I'm wrong)
+install(TARGETS krunner_qalculator DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/kf6/krunner)
+install(FILES manifest.json DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/kf6/krunner)
 
 # Clear KRunner cache after installation
 install(CODE "
