@@ -63,10 +63,8 @@ else
 fi
 
 # KRunner needs to be restarted for the changes to be applied
-if pgrep -x krunner > /dev/null
-then
-    kquitapp$krunner_version krunner
-fi
+USER_NAME=$(logname)
+pkill -x krunner || true // prevent error message if krunner was not running
 
 echo "Plugin installed successfully"
 echo "KRunner restarted. Try using the plugin by pressing Alt+Space"
