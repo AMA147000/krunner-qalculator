@@ -24,6 +24,9 @@ include(ECMQtDeclareLoggingCategory)
 
 find_package(Qt6 CONFIG REQUIRED COMPONENTS Core Widgets)
 find_package(KF6 REQUIRED COMPONENTS Runner I18n CoreAddons Config)
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(QALCULATE REQUIRED IMPORTED_TARGET libqalculate)
 
 add_definitions("-DPROJECT_VERSION=\"${PROJECT_VERSION}\"")
 
@@ -41,6 +44,7 @@ target_link_libraries(krunner_qalculator
     KF6::I18n
     KF6::CoreAddons
     KF6::ConfigCore
+    PkgConfig::QALCULATE
 )
 
 # This should use KDE_INSTALL_QTPLUGINDIR instead of CMAKE_INSTALL_PREFIX as it is a kde plugin (correct me if I'm wrong)
