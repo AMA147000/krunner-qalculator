@@ -53,7 +53,7 @@ void QalculatorRunner::match(KRunner::RunnerContext &context)
 {
     const QString term = context.query();
 
-    if (term.length() < 3) {
+    if (term.isEmpty()) {
         return;
     }
 
