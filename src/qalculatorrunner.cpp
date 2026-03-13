@@ -118,6 +118,9 @@ QString QalculatorRunner::calculate(const QString &term)
     PrintOptions po;
     po.interval_display = INTERVAL_DISPLAY_MIDPOINT; // approximate result instead of "interval()"
     std::string res_str = CALCULATOR->print(mstruct, timeout, po);
+
+    if (res_str == expr) return QString(); // dont return the original expression if it is the result
+
     QString result = QString::fromStdString(res_str);
 
     return result;
