@@ -64,7 +64,7 @@ fi
 
 # KRunner needs to be restarted for the changes to be applied
 USER_NAME=$(logname)
-pkill -x krunner || true // prevent error message if krunner was not running
+pkill -x krunner || true # prevent error message if krunner was not running
 
 echo "Plugin installed successfully"
 echo "KRunner restarted. Try using the plugin by pressing Alt+Space"
