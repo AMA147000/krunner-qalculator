@@ -35,7 +35,7 @@ if(ENABLE_DEBUG)
     add_definitions(-g -DDEBUG)
 endif()
 
-add_library(krunner_qalculator MODULE qalculatorrunner.cpp)
+kcoreaddons_add_plugin(krunner_qalculator SOURCES qalculatorrunner.cpp INSTALL_NAMESPACE "kf6/krunner")
 
 target_link_libraries(krunner_qalculator
     Qt6::Core
@@ -46,23 +46,6 @@ target_link_libraries(krunner_qalculator
     KF6::ConfigCore
     PkgConfig::QALCULATE
 )
-
-# This should use KDE_INSTALL_QTPLUGINDIR instead of CMAKE_INSTALL_PREFIX as it is a kde plugin (correct me if I'm wrong)
-install(TARGETS krunner_qalculator DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/kf6/krunner)
-install(FILES manifest.json DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/kf6/krunner)
-
-# Clear KRunner cache after installation
-install(CODE "
-    execute_process(COMMAND krunner --version OUTPUT_VARIABLE KRUNNER_VERSION_OUTPUT)
-    string(REGEX MATCH \"krunner ([0-9]+)\" KRUNNER_VERSION_MATCH \"\${KRUNNER_VERSION_OUTPUT}\")
-    set(KRUNNER_VERSION \"\${CMAKE_MATCH_1}\")
-    if(KRUNNER_VERSION STREQUAL \"6\")
-        execute_process(COMMAND kquitapp6 krunner)
-        execute_process(COMMAND kstart6 krunner)
-    else()
-        execute_process(COMMAND krunner --replace)
-    endif()
-")
 
 # Enable testing if not disabled
 if(BUILD_TESTING)
