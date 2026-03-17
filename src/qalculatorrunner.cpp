@@ -63,7 +63,6 @@ void QalculatorRunner::match(KRunner::RunnerContext &context)
         match.setRelevance(1.0);
         match.setText(result);
         match.setIconName(QStringLiteral("accessories-calculator"));
-        match.setData(QStringLiteral("copy"));
 
         KRunner::Action copyAction(QStringLiteral("copy"), QStringLiteral("edit-copy"), i18n("Copy to clipboard"));
         match.addAction(copyAction);
@@ -74,8 +73,6 @@ void QalculatorRunner::match(KRunner::RunnerContext &context)
 
 void QalculatorRunner::run(const KRunner::RunnerContext &context, const KRunner::QueryMatch &match)
 {
-    Q_UNUSED(context)
-
     const QString result = match.text();
     const QString action = match.selectedAction().id();
 
